@@ -1,66 +1,1008 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Me</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: light;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Studio Brass — Engineering-driven design for the modern web</title>
+<meta name="description" content="We design and build web applications that perform under pressure, scale without friction, and feel effortless to use." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#F7F5F2;
+  --bg-surface:#FFFFFF;
+  --bg-elevated:#FAF9F7;
+  --bg-code:#F0EEE9;
+  --text-primary:#1C1E21;
+  --text-secondary:#6E737B;
+  --text-tertiary:#9A9FA8;
+  --accent:#C4956A;
+  --accent-dark:#A67B54;
+  --accent-light:#F0E8DE;
+  --accent-glow:rgba(196,149,106,0.12);
+  --border:#E3DFD8;
+  --border-light:#EFEBE4;
+  --success:#3A8A5C;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --space-unit:8px;
+  --space-xs:calc(var(--space-unit)*1);
+  --space-sm:calc(var(--space-unit)*2);
+  --space-md:calc(var(--space-unit)*3);
+  --space-lg:calc(var(--space-unit)*5);
+  --space-xl:calc(var(--space-unit)*8);
+  --space-2xl:calc(var(--space-unit)*12);
+  --space-3xl:calc(var(--space-unit)*16);
+  --radius-sm:2px;
+  --radius-md:4px;
+  --radius-lg:8px;
+  --max-width:1200px;
+  --header-h:64px;
+  --ease-out: cubic-bezier(0.22,1,0.36,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
+  --duration-fast:200ms;
+  --duration-normal:400ms;
+  --duration-slow:800ms
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;padding:0;
+  background:var(--bg);
+  color:var(--text-primary);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-md)}
+::selection{background:var(--accent);color:#fff}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:400;line-height:1.2;margin:0}
+p{margin:0}
+.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 var(--space-lg)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    * {
-      box-sizing: border-box;
-    }
+/* Header */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--header-h);
+  background:transparent;
+  transition:background var(--duration-normal) var(--ease-out),box-shadow var(--duration-normal) var(--ease-out)
+}
+.header.is-scrolled{background:rgba(247,245,242,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border)}
+.header .container{display:flex;align-items:center;height:100%;justify-content:space-between}
+.header-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;display:flex;align-items:center;gap:var(--space-sm)}
+.header-logo span{color:var(--accent)}
+.header-nav{display:flex;align-items:center;gap:var(--space-lg)}
+.header-nav a{font-size:0.875rem;font-weight:500;color:var(--text-secondary);transition:color var(--duration-fast) ease;position:relative}
+.header-nav a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width var(--duration-fast) var(--ease-out)}
+.header-nav a:hover{color:var(--text-primary)}
+.header-nav a:hover::after{width:100%}
+.header-nav .cta-link{
+  display:inline-flex;align-items:center;gap:var(--space-xs);
+  padding:var(--space-xs) var(--space-md);
+  background:var(--accent);color:#fff;border-radius:var(--radius-sm);
+  font-weight:500;font-size:0.875rem;
+  transition:background var(--duration-fast) ease,transform var(--duration-fast) var(--ease-out)
+}
+.header-nav .cta-link::after{display:none}
+.header-nav .cta-link:hover{background:var(--accent-dark);color:#fff;transform:translateY(-1px)}
+.header-mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:var(--space-xs);color:var(--text-primary)}
+.header-mobile-toggle svg{display:block}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #ffffff;
-      color: #111111;
-      font-family: "Inter", sans-serif;
-    }
+/* Sections */
+.section{padding:var(--space-3xl) 0}
+.section-heading{
+  font-family:var(--font-display);
+  font-size:clamp(1.75rem,4vw,2.75rem);
+  font-weight:300;
+  letter-spacing:-0.03em;
+  line-height:1.1;
+  margin-bottom:var(--space-lg)
+}
+.section-eyebrow{
+  font-family:var(--font-body);
+  font-size:0.75rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--accent);
+  margin-bottom:var(--space-md);
+  display:flex;align-items:center;gap:var(--space-sm)
+}
+.section-eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent)}
 
-    main {
-      width: min(28rem, calc(100vw - 2rem));
-      text-align: center;
-    }
+/* Hero */
+.hero{
+  min-height:calc(100vh - var(--header-h));
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--space-3xl) 0 var(--space-2xl);
+  margin-top:var(--header-h)
+}
+.hero-content{max-width:880px}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,6.5vw,5rem);
+  font-weight:300;
+  letter-spacing:-0.04em;
+  line-height:1.05;
+  margin-bottom:var(--space-lg);
+  opacity:0;transform:translateY(24px);
+  animation:heroFadeIn 0.8s var(--ease-out) 0.1s forwards
+}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.hero p{
+  font-size:clamp(1.05rem,1.5vw,1.2rem);
+  color:var(--text-secondary);
+  max-width:560px;
+  line-height:1.7;
+  margin-bottom:var(--space-xl);
+  opacity:0;transform:translateY(20px);
+  animation:heroFadeIn 0.8s var(--ease-out) 0.25s forwards
+}
+.hero-actions{
+  display:flex;align-items:center;gap:var(--space-lg);
+  opacity:0;transform:translateY(16px);
+  animation:heroFadeIn 0.8s var(--ease-out) 0.4s forwards
+}
+.btn{
+  display:inline-flex;align-items:center;gap:var(--space-sm);
+  padding:var(--space-md) var(--space-xl);
+  font-family:var(--font-body);
+  font-size:0.9375rem;
+  font-weight:500;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:all var(--duration-fast) var(--ease-out);
+  border:none;text-decoration:none
+}
+.btn-primary{
+  background:var(--accent);color:#fff
+}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 4px 16px rgba(196,149,106,0.25)}
+.btn-secondary{
+  background:transparent;color:var(--text-primary);border:1px solid var(--border)
+}
+.btn-secondary:hover{background:var(--bg-surface);border-color:var(--accent);transform:translateY(-2px)}
+.btn .arrow{display:inline-block;transition:transform var(--duration-fast) var(--ease-out)}
+.btn:hover .arrow{transform:translateX(4px)}
 
-    .icon {
-      width: 3rem;
-      height: 3rem;
-      margin: 0 auto 1rem;
-      display: block;
-      color: #111111;
-    }
+@keyframes heroFadeIn{to{opacity:1;transform:translateY(0)}}
 
-    h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
+/* Metrics strip */
+.metrics-strip{
+  margin-top:var(--space-2xl);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  opacity:0;transform:translateY(20px);
+  animation:heroFadeIn 0.8s var(--ease-out) 0.55s forwards
+}
+.metric-card{
+  background:var(--bg-surface);
+  padding:var(--space-lg) var(--space-md);
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:var(--space-xs)
+}
+.metric-card .value{
+  font-family:var(--font-display);
+  font-size:clamp(1.75rem,3vw,2.5rem);
+  font-weight:300;
+  letter-spacing:-0.03em;
+  color:var(--text-primary);
+  line-height:1
+}
+.metric-card .label{
+  font-size:0.8125rem;
+  color:var(--text-secondary);
+  font-weight:400;
+  line-height:1.4
+}
+.metric-card .label strong{color:var(--accent);font-weight:500}
 
-    p {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #444444;
-    }
-  </style>
+/* Principles */
+.principles-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--space-lg)
+}
+.principles-grid .principle-card{
+  background:var(--bg-surface);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius-md);
+  padding:var(--space-xl) var(--space-lg);
+  transition:all var(--duration-normal) var(--ease-out);
+  cursor:default
+}
+.principles-grid .principle-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 8px 32px var(--accent-glow);
+  transform:translateY(-4px)
+}
+.principle-card .icon{
+  font-size:1.5rem;
+  margin-bottom:var(--space-md);
+  display:inline-block;
+  color:var(--accent);
+  font-family:var(--font-display);
+  font-style:italic;
+  font-weight:400
+}
+.principle-card h3{
+  font-family:var(--font-display);
+  font-size:1.25rem;
+  font-weight:600;
+  margin-bottom:var(--space-sm);
+  letter-spacing:-0.02em
+}
+.principle-card p{
+  font-size:0.9375rem;
+  color:var(--text-secondary);
+  line-height:1.7
+}
+
+/* Work */
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--space-lg)
+}
+.work-card{
+  background:var(--bg-surface);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--duration-normal) var(--ease-out)
+}
+.work-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 12px 40px var(--accent-glow);
+  transform:translateY(-6px)
+}
+.work-card-visual{
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg-code);
+  font-family:var(--font-mono);
+  font-size:0.75rem;
+  color:var(--text-tertiary);
+  letter-spacing:0.02em;
+  position:relative;overflow:hidden
+}
+.work-card:nth-child(1) .work-card-visual{background:linear-gradient(135deg,#1a1c20 0%,#2a2d33 100%)}
+.work-card:nth-child(2) .work-card-visual{background:linear-gradient(135deg,#1e2a24 0%,#2a3d33 100%)}
+.work-card:nth-child(3) .work-card-visual{background:linear-gradient(135deg,#2a2420 0%,#3d302a 100%)}
+.work-card-visual .project-label{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  font-weight:300;
+  color:rgba(255,255,255,0.1);
+  letter-spacing:-0.03em
+}
+.work-card-content{padding:var(--space-lg)}
+.work-card-content .tag{
+  display:inline-block;
+  font-family:var(--font-mono);
+  font-size:0.6875rem;
+  color:var(--accent);
+  background:var(--accent-glow);
+  padding:2px var(--space-sm);
+  border-radius:var(--radius-sm);
+  margin-bottom:var(--space-sm)
+}
+.work-card-content h3{
+  font-family:var(--font-display);
+  font-size:1.25rem;
+  font-weight:600;
+  letter-spacing:-0.02em;
+  margin-bottom:var(--space-xs)
+}
+.work-card-content .result{
+  font-size:0.875rem;
+  color:var(--text-secondary);
+  line-height:1.6;
+  margin-bottom:var(--space-sm)
+}
+.work-card-content .stat{
+  font-family:var(--font-mono);
+  font-size:0.8125rem;
+  color:var(--accent);
+  font-weight:500;
+  margin-top:var(--space-sm);
+  display:flex;align-items:center;gap:var(--space-xs)
+}
+.work-card-content .stat::before{content:'\2197';font-size:0.75rem}
+
+/* Process */
+.process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-lg);position:relative}
+.process-steps::before{
+  content:'';position:absolute;top:28px;left:calc(var(--space-lg) + 24px);
+  right:calc(var(--space-lg) + 24px);height:1px;
+  background:var(--border);z-index:0
+}
+.process-step{
+  text-align:center;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center
+}
+.process-step .step-num{
+  width:56px;height:56px;
+  border-radius:50%;
+  background:var(--bg-surface);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);
+  font-size:1.25rem;
+  font-weight:400;
+  color:var(--accent);
+  margin-bottom:var(--space-md);
+  transition:all var(--duration-normal) var(--ease-out)
+}
+.process-step:hover .step-num{
+  border-color:var(--accent);
+  background:var(--accent-glow);
+  transform:scale(1.05)
+}
+.process-step h4{
+  font-family:var(--font-display);
+  font-size:1rem;
+  font-weight:600;
+  margin-bottom:var(--space-xs);
+  letter-spacing:-0.01em
+}
+.process-step p{
+  font-size:0.8125rem;
+  color:var(--text-secondary);
+  line-height:1.5;
+  max-width:180px
+}
+
+/* Testimonials */
+.testimonial-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--space-lg)
+}
+.testimonial-card{
+  background:var(--bg-surface);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius-md);
+  padding:var(--space-xl) var(--space-lg);
+  position:relative
+}
+.testimonial-card::before{
+  content:'"';
+  font-family:var(--font-display);
+  font-size:4rem;
+  font-weight:300;
+  color:var(--accent);
+  line-height:1;
+  position:absolute;
+  top:var(--space-md);
+  left:var(--space-lg);
+  opacity:0.3
+}
+.testimonial-card blockquote{
+  margin:0;padding:0;
+  font-size:1rem;
+  line-height:1.7;
+  color:var(--text-primary);
+  font-style:italic
+}
+.testimonial-card cite{
+  display:block;
+  margin-top:var(--space-lg);
+  font-style:normal;
+  font-size:0.875rem;
+  font-weight:500;
+  color:var(--text-secondary);
+  padding-top:var(--space-md);
+  border-top:1px solid var(--border-light)
+}
+.testimonial-card cite strong{color:var(--text-primary);display:block;font-weight:500}
+
+/* FAQ */
+.faq-list{max-width:720px}
+.faq-item{
+  border-bottom:1px solid var(--border-light);
+  padding:var(--space-lg) 0
+}
+.faq-item:first-child{padding-top:0;border-top:1px solid var(--border-light)}
+.faq-question{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  width:100%;background:none;border:none;cursor:pointer;
+  font-family:var(--font-display);
+  font-size:1.1rem;
+  font-weight:500;
+  color:var(--text-primary);
+  padding:0;text-align:left;
+  transition:color var(--duration-fast) ease
+}
+.faq-question:hover{color:var(--accent)}
+.faq-question .faq-toggle{
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-left:var(--space-md);
+  transition:transform var(--duration-fast) var(--ease-out)
+}
+.faq-item.is-open .faq-toggle{transform:rotate(45deg)}
+.faq-answer{
+  max-height:0;overflow:hidden;
+  transition:max-height var(--duration-normal) var(--ease-in-out),
+             padding var(--duration-normal) var(--ease-in-out);
+  padding:0
+}
+.faq-item.is-open .faq-answer{
+  max-height:300px;
+  padding-top:var(--space-md)
+}
+.faq-answer p{
+  font-size:0.9375rem;
+  color:var(--text-secondary);
+  line-height:1.7;
+  margin:0
+}
+
+/* CTA section */
+.cta-section{
+  background:var(--bg-surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  text-align:center
+}
+.cta-section .cta-content{
+  max-width:640px;
+  margin:0 auto
+}
+.cta-section h2{
+  font-family:var(--font-display);
+  font-size:clamp(1.75rem,4vw,2.75rem);
+  font-weight:300;
+  letter-spacing:-0.03em;
+  margin-bottom:var(--space-md)
+}
+.cta-section p{
+  color:var(--text-secondary);
+  margin-bottom:var(--space-xl);
+  font-size:1.05rem
+}
+.cta-section .btn-group{
+  display:flex;align-items:center;justify-content:center;gap:var(--space-md)
+}
+
+/* Footer */
+.footer{
+  padding:var(--space-2xl) 0 var(--space-xl);
+  border-top:1px solid var(--border-light)
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:var(--space-xl)
+}
+.footer-brand .logo{font-family:var(--font-display);font-size:1.15rem;font-weight:600;margin-bottom:var(--space-sm)}
+.footer-brand .logo span{color:var(--accent)}
+.footer-brand p{font-size:0.875rem;color:var(--text-secondary);max-width:280px;line-height:1.6}
+.footer-col h4{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-tertiary);margin-bottom:var(--space-md)}
+.footer-col a{display:block;font-size:0.875rem;color:var(--text-secondary);padding:var(--space-xs) 0;transition:color var(--duration-fast) ease}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  margin-top:var(--space-2xl);
+  padding-top:var(--space-lg);
+  border-top:1px solid var(--border-light);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.8125rem;
+  color:var(--text-tertiary)
+}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s var(--ease-out),transform 0.7s var(--ease-out)}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .hero h1,.hero p,.hero-actions,.metrics-strip{opacity:1;transform:none;animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .header-nav a:not(.cta-link){display:none}
+  .header-mobile-toggle{display:flex}
+  .metrics-strip{grid-template-columns:repeat(2,1fr)}
+  .metrics-strip .metric-card:nth-child(3),
+  .metrics-strip .metric-card:nth-child(4){border-top:1px solid var(--border)}
+  .principles-grid{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr;gap:var(--space-lg)}
+  .process-steps::before{display:none}
+  .process-step{flex-direction:row;text-align:left;gap:var(--space-md)}
+  .process-step .step-num{flex-shrink:0;margin-bottom:0}
+  .process-step p{max-width:none}
+  .testimonial-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:var(--space-lg)}
+  .cta-section .btn-group{flex-direction:column}
+}
+
+@media(max-width:600px){
+  .section{padding:var(--space-2xl) 0}
+  .container{padding:0 var(--space-md)}
+  .hero{padding:var(--space-2xl) 0 var(--space-xl)}
+  .hero h1{font-size:clamp(2rem,10vw,2.75rem)}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:var(--space-md)}
+  .metrics-strip{grid-template-columns:repeat(2,1fr);gap:0;border:none;background:transparent}
+  .metric-card{border:1px solid var(--border);margin-bottom:-1px}
+  .metric-card:nth-child(odd){margin-right:-1px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:var(--space-sm);text-align:center}
+}
+
+@media(max-width:480px){
+  .metrics-strip{grid-template-columns:1fr}
+  .metric-card:nth-child(odd){margin-right:0}
+}
+
+/* Mobile nav */
+.mobile-nav{
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;
+  background:rgba(247,245,242,0.98);backdrop-filter:blur(16px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:var(--space-xl);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--duration-normal) var(--ease-out)
+}
+.mobile-nav.is-open{opacity:1;pointer-events:auto}
+.mobile-nav a{font-family:var(--font-display);font-size:1.75rem;font-weight:300;color:var(--text-primary)}
+.mobile-nav a:hover{color:var(--accent)}
+.mobile-nav-close{
+  position:absolute;top:var(--space-md);right:var(--space-md);
+  background:none;border:none;cursor:pointer;padding:var(--space-sm);color:var(--text-primary)
+}
+</style>
 </head>
 <body>
-  <main>
-    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 3L4 7V12C4 17 7.4 20.9 12 22C16.6 20.9 20 17 20 12V7L12 3Z" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M9.5 12L11.25 13.75L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+<a href="#main" class="sr-only">Skip to main content</a>
+
+<header class="header" role="banner" id="header">
+  <div class="container">
+    <a href="#" class="header-logo" aria-label="Studio Brass home">Studio<span>Brass</span></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#principles">Principles</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="cta-link">Start a conversation <span class="arrow">&rarr;</span></a>
+    </nav>
+    <button class="header-mobile-toggle" aria-label="Open menu" id="menuToggle" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <button class="mobile-nav-close" aria-label="Close menu" id="menuClose">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="18" y1="6" x2="6" y2="18" />
     </svg>
-    <h1>Open for Editing</h1>
-    <p>Agent: edit this page freely and keep it simple.</p>
-  </main>
+  </button>
+  <a href="#work" id="mobileWorkLink">Work</a>
+  <a href="#process" id="mobileProcessLink">Process</a>
+  <a href="#principles" id="mobilePrinciplesLink">Principles</a>
+  <a href="#faq" id="mobileFaqLink">FAQ</a>
+  <a href="#contact" id="mobileContactLink">Start a conversation</a>
+</nav>
+
+<main id="main">
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Craft that <em>ships</em>.</h1>
+        <p>We design and build web applications that perform under pressure, scale without friction, and feel effortless to use. Engineering-driven design for the modern web.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Start a conversation <span class="arrow">&rarr;</span></a>
+          <a href="#work" class="btn btn-secondary">See our work</a>
+        </div>
+      </div>
+
+      <div class="metrics-strip" aria-label="Key metrics">
+        <div class="metric-card">
+          <span class="value" data-target="12" data-suffix="+">0</span>
+          <span class="label">Years of <strong>experience</strong></span>
+        </div>
+        <div class="metric-card">
+          <span class="value" data-target="80" data-suffix="+">0</span>
+          <span class="label">Projects <strong>delivered</strong></span>
+        </div>
+        <div class="metric-card">
+          <span class="value" data-target="47" data-suffix="%">0</span>
+          <span class="label">Avg. performance <strong>improvement</strong></span>
+        </div>
+        <div class="metric-card">
+          <span class="value" data-target="99" data-suffix="">0</span>
+          <span class="label">Lighthouse scores <strong>achieved</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="principles">
+    <div class="container">
+      <div class="section-eyebrow reveal">Principles</div>
+      <h2 class="section-heading reveal">What we believe about <br/>building for the web.</h2>
+      <div class="principles-grid">
+        <div class="principle-card reveal">
+          <span class="icon">&lowast;</span>
+          <h3>Performance is a feature</h3>
+          <p>We don't optimize at the end. Speed is designed into the architecture from the first commit, not bolted on before launch. Every millisecond compounds.</p>
+        </div>
+        <div class="principle-card reveal">
+          <span class="icon">&lowast;</span>
+          <h3>Accessibility is not a checklist</h3>
+          <p>Inclusive design makes products better for everyone. We build for the full spectrum of human ability, not because we have to, but because it produces stronger work.</p>
+        </div>
+        <div class="principle-card reveal">
+          <span class="icon">&lowast;</span>
+          <h3>The best code is less code</h3>
+          <p>We value simplicity, choose the right tool for the job, and avoid unnecessary abstraction. Every line of code should earn its place in the bundle.</p>
+        </div>
+        <div class="principle-card reveal">
+          <span class="icon">&lowast;</span>
+          <h3>Design is how it works</h3>
+          <p>We don't decorate. We solve problems through thoughtful interface design, where every interaction, transition, and pixel serves a purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="container">
+      <div class="section-eyebrow reveal">Selected work</div>
+      <h2 class="section-heading reveal">Projects that speak <br/>for themselves.</h2>
+      <div class="work-grid">
+        <article class="work-card reveal">
+          <div class="work-card-visual">
+            <span class="project-label">Helios</span>
+          </div>
+          <div class="work-card-content">
+            <span class="tag">SaaS / Analytics</span>
+            <h3>Helios</h3>
+            <p class="result">A real-time analytics platform for a clean energy company. We rebuilt the frontend from the ground up, cutting page load time by 62% and improving LCP by 84%.</p>
+            <span class="stat">62% faster page loads</span>
+          </div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-card-visual">
+            <span class="project-label">Aether</span>
+          </div>
+          <div class="work-card-content">
+            <span class="tag">Design System / Fintech</span>
+            <h3>Aether</h3>
+            <p class="result">A comprehensive design system for a fintech startup. We shipped 240+ components with full accessibility coverage, achieving 99.8% on automated audits.</p>
+            <span class="stat">4x faster design-to-dev velocity</span>
+          </div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-card-visual">
+            <span class="project-label">Terra</span>
+          </div>
+          <div class="work-card-content">
+            <span class="tag">E-Commerce</span>
+            <h3>Terra</h3>
+            <p class="result">A performance-optimized e-commerce platform for a sustainable brand. We redesigned the product experience and improved conversion rate by 34%.</p>
+            <span class="stat">34% conversion rate increase</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section-eyebrow reveal">How we partner</div>
+      <h2 class="section-heading reveal">A process built for <br/>collaboration.</h2>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <span class="step-num">01</span>
+          <div>
+            <h4>Understand</h4>
+            <p>Deep research into users, business goals, and technical constraints before we write a single line of code.</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">02</span>
+          <div>
+            <h4>Architect</h4>
+            <p>System design, information architecture, and technical planning that sets the foundation for everything that follows.</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">03</span>
+          <div>
+            <h4>Build</h4>
+            <p>Iterative development with continuous feedback, automated testing, and regular deploy previews so nothing is a surprise.</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">04</span>
+          <div>
+            <h4>Ship</h4>
+            <p>Performance optimization, accessibility audit, and a production deployment that meets the highest standards.</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">05</span>
+          <div>
+            <h4>Evolve</h4>
+            <p>Ongoing monitoring, support, and iteration. We stay with you to ensure the product continues to perform.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="section-eyebrow reveal">Client voices</div>
+      <h2 class="section-heading reveal">What partners say <br/>about working with us.</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card reveal">
+          <blockquote>They didn't just build our platform — they changed how we think about digital products. The performance improvements alone paid for the engagement twice over.</blockquote>
+          <cite><strong>Ravi Patel</strong>CTO, Helios Energy</cite>
+        </div>
+        <div class="testimonial-card reveal">
+          <blockquote>Most agencies deliver a design that looks good in Figma but falls apart under real conditions. Studio Brass delivers something that actually works, and they care about the details that matter.</blockquote>
+          <cite><strong>Sarah Chen</strong>Head of Product, Aether Financial</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-eyebrow reveal">Questions</div>
+      <h2 class="section-heading reveal">Common questions, <br/>straight answers.</h2>
+      <div class="faq-list" role="list">
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            How do you price your engagements?
+            <span class="faq-toggle" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <line x1="10" y1="4" x2="10" y2="16" />
+                <line x1="4" y1="10" x2="16" y2="10" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer" role="region">
+            <p>We work on a fixed-price per phase model. After an initial discovery sprint, we scope each phase precisely so there are no surprises. Typical engagements range from $50,000 to $250,000 depending on complexity and scale.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            What's your typical timeline?
+            <span class="faq-toggle" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <line x1="10" y1="4" x2="10" y2="16" />
+                <line x1="4" y1="10" x2="16" y2="10" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer" role="region">
+            <p>A typical project runs 8 to 16 weeks from kickoff to launch. The discovery phase takes 2 weeks, followed by 6 to 14 weeks of building and iteration. We'll give you a firm timeline during scoping.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            How do you handle ongoing maintenance?
+            <span class="faq-toggle" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <line x1="10" y1="4" x2="10" y2="16" />
+                <line x1="4" y1="10" x2="16" y2="10" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer" role="region">
+            <p>After launch, we offer retainer-based support for ongoing maintenance, monitoring, and feature iteration. Most clients start with 10 hours per month and scale up as needed. We're transparent about every hour.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            What technologies do you use?
+            <span class="faq-toggle" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <line x1="10" y1="4" x2="10" y2="16" />
+                <line x1="4" y1="10" x2="16" y2="10" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer" role="region">
+            <p>We choose tools based on the problem, not trends. Our core stack is TypeScript, React or Svelte, Next.js or Remix, and Node.js or Go on the backend. But we've also shipped projects with Elixir, Python, and Rust when the use case demanded it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-section" id="contact">
+    <div class="container">
+      <div class="cta-content reveal">
+        <h2>Let's build something <br/>that works.</h2>
+        <p>Tell us about your project. We'll respond within one business day with a point of view, not a pitch.</p>
+        <div class="btn-group">
+          <a href="mailto:hello@studiobrass.com" class="btn btn-primary">Send us a note <span class="arrow">&rarr;</span></a>
+          <a href="#" class="btn btn-secondary">Schedule a call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Studio<span>Brass</span></div>
+        <p>Engineering-driven design for the modern web. We build applications that perform, scale, and last.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Web Development</a>
+        <a href="#">Design Systems</a>
+        <a href="#">Performance Audit</a>
+        <a href="#">Technical Consulting</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Work</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:hello@studiobrass.com">hello@studiobrass.com</a>
+        <a href="#">Twitter / X</a>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Studio Brass. All rights reserved.</span>
+      <span>Built with care, not templates.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const header = document.getElementById('header');
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function handleScroll() {
+    header.classList.toggle('is-scrolled', window.scrollY > 40);
+  }
+
+  function openMobileNav() {
+    mobileNav.classList.add('is-open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuToggle.addEventListener('click', openMobileNav);
+  menuClose.addEventListener('click', closeMobileNav);
+  mobileNav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', closeMobileNav);
+  });
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  /* Scroll reveal */
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(function(el) { revealObserver.observe(el); });
+
+  /* Metric counting */
+  let metricsCounted = false;
+  const metricValues = document.querySelectorAll('.metric-card .value');
+  const metricsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !metricsCounted) {
+        metricsCounted = true;
+        countMetrics();
+        metricsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (metricValues.length) {
+    metricsObserver.observe(metricValues[0].closest('.metrics-strip'));
+  }
+
+  function countMetrics() {
+    metricValues.forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1500;
+      var startTime = performance.now();
+
+      function update(currentTime) {
+        var elapsed = currentTime - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  /* FAQ accordion */
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item) {
+    var question = item.querySelector('.faq-question');
+    question.addEventListener('click', function() {
+      var isOpen = item.classList.contains('is-open');
+      faqItems.forEach(function(i) { i.classList.remove('is-open'); i.querySelector('.faq-question').setAttribute('aria-expanded', 'false'); });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        question.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* Smooth scroll for anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        var headerOffset = 72;
+        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
